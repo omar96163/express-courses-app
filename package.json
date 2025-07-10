@@ -1,0 +1,24 @@
+{
+  "name": "express-courses-app",
+  "version": "1.0.0",
+  "description": "express courses app for learning purposes with Node.js and Express framework using EJS as a template engine and MongoDB as a database system. This app is designed to help users learn how to create and manage courses, including features for adding, editing, and deleting courses.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omar96163/express-courses-app.git"
+  },
+  "keywords": [],
+  "author": "Omar Albaz",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/omar96163/express-courses-app/issues"
+  },
+  "homepage": "https://github.com/omar96163/express-courses-app#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
