@@ -1,7 +1,12 @@
-export const roles = {
-  USER: "USER",
-  ADMIN: "ADMIN",
-  MANAGER: "MANAGER",
+export const notFound = (req, res) => {
+  return res.status(404).json({
+    status: "Failed",
+    error: "this route not found",
+  });
+};
+
+export const listening = () => {
+  return console.log("listening on port", process.env.port);
 };
 
 export const allowed_to = (...roles) => {

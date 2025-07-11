@@ -1,12 +1,12 @@
 import JsonWebToken from "jsonwebtoken";
 
-export function generate_token(email, id, role) {
+export const generate_token = (email, id, role) => {
   return JsonWebToken.sign({ email, id, role }, process.env.secret_key, {
     expiresIn: "1m",
   });
-}
+};
 
-export function verify_token(req, res, next) {
+export const verify_token = (req, res, next) => {
   const Authorization_token = req.headers.authorization;
   if (!Authorization_token) {
     return res
@@ -25,4 +25,4 @@ export function verify_token(req, res, next) {
       message: err.message,
     });
   }
-}
+};
