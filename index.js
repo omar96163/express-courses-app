@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import { fileURLToPath } from "url";
 import { usersRouter } from "./routes/users_routes.js";
 import { courseRouter } from "./routes/courses_routes.js";
-import { notFound, listening } from "./Middlewares/handlers.js";
+import { notFound, listening, homeRouter } from "./Middlewares/handlers.js";
 
 const app = express();
 
@@ -24,6 +24,7 @@ export const imagesPath = path.join(__dirname, "uploads");
 
 app.use(cors());
 app.use(express.json());
+app.use("/", homeRouter);
 app.use("/uploads", express.static(imagesPath));
 app.use("/api/thecourses", courseRouter);
 app.use("/api/theusers", usersRouter);

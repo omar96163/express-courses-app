@@ -20,3 +20,7 @@ export const allowed_to = (...roles) => {
     next();
   };
 };
+
+export const homeRouter = (req, res) => {
+  return res.send("Welcome to the courses app");
+};
