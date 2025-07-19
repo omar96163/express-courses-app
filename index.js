@@ -24,9 +24,9 @@ export const imagesPath = path.join(__dirname, "uploads");
 
 app.use(cors());
 app.use(express.json());
-app.use("/", homeRouter);
 app.use("/uploads", express.static(imagesPath));
 app.use("/api/thecourses", courseRouter);
 app.use("/api/theusers", usersRouter);
+app.use("/", homeRouter);
 app.use(notFound);
 app.listen(process.env.port || 3000, listening);
