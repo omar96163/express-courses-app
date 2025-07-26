@@ -43,14 +43,14 @@ export const login = async (req, res) => {
   if (!user_email || !user_password) {
     return res.status(400).json({
       status: "Failed",
-      data: "email & password are required",
+      error: "email & password are required",
     });
   } else {
     const matched_user = await usersmodel.findOne({ email: user_email });
     if (!matched_user) {
       return res.status(404).json({
         status: "Failed",
-        data: "this email not exist",
+        error: "this email not exist",
       });
     } else {
       const matched_password = await bcrypt.compare(
@@ -60,7 +60,7 @@ export const login = async (req, res) => {
       if (!matched_password) {
         return res.status(401).json({
           status: "Failed",
-          data: "this password is wrong",
+          error: "this password is wrong",
         });
       } else {
         const token = generate_token(
@@ -71,7 +71,7 @@ export const login = async (req, res) => {
         matched_user.token = token;
         return res.json({
           status: "success",
-          data: "logged in successfully",
+          message: "logged in successfully",
           user: matched_user,
         });
       }
