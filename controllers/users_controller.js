@@ -48,7 +48,7 @@ export const login = async (req, res) => {
   } else {
     const matched_user = await usersmodel.findOne({ email: user_email });
     if (!matched_user) {
-      return res.json({
+      return res.status(404).json({
         status: "Failed",
         data: "this email not exist",
       });
@@ -58,7 +58,7 @@ export const login = async (req, res) => {
         matched_user.password
       );
       if (!matched_password) {
-        return res.json({
+        return res.status(401).json({
           status: "Failed",
           data: "this password is wrong",
         });
