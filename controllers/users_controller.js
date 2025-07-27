@@ -46,35 +46,39 @@ export const login = async (req, res) => {
       error: "email & password are required",
     });
   } else {
-    const matched_user = await usersmodel.findOne({ email: user_email });
-    if (!matched_user) {
-      return res.status(404).json({
-        status: "Failed",
-        error: "this email not exist",
-      });
-    } else {
-      const matched_password = await bcrypt.compare(
-        user_password,
-        matched_user.password
-      );
-      if (!matched_password) {
-        return res.status(401).json({
+    try {
+      const matched_user = await usersmodel.findOne({ email: user_email });
+      if (!matched_user) {
+        return res.status(404).json({
           status: "Failed",
-          error: "this password is wrong",
+          error: "this email not exist",
         });
       } else {
-        const token = generate_token(
-          matched_user.email,
-          matched_user._id,
-          matched_user.role
+        const matched_password = await bcrypt.compare(
+          user_password,
+          matched_user.password
         );
-        matched_user.token = token;
-        return res.json({
-          status: "success",
-          message: "logged in successfully",
-          user: matched_user,
-        });
+        if (!matched_password) {
+          return res.status(401).json({
+            status: "Failed",
+            error: "this password is wrong",
+          });
+        } else {
+          const token = generate_token(
+            matched_user.email,
+            matched_user._id,
+            matched_user.role
+          );
+          matched_user.token = token;
+          return res.json({
+            status: "success",
+            message: "logged in successfully",
+            user: matched_user,
+          });
+        }
       }
+    } catch (err) {
+      return res.status(500).json({ status: "error", error: err.message });
     }
   }
 };
