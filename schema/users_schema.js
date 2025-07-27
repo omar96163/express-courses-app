@@ -40,12 +40,12 @@ export const validationSchemaUsers = () => {
     body("firstname")
       .notEmpty()
       .withMessage("firstname is required")
-      .isLength({ min: 5 })
+      .isLength({ min: 4 })
       .withMessage("min length is 4 characters"),
     body("lastname")
       .notEmpty()
       .withMessage("lastname is required")
-      .isLength({ min: 5 })
+      .isLength({ min: 4 })
       .withMessage("min length is 4 characters"),
     body("email")
       .notEmpty()

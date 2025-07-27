@@ -24,7 +24,7 @@ export const validationSchemaCourses = () => {
     body("price")
       .notEmpty()
       .withMessage("price is required")
-      .isFloat({ min: 3 })
+      .isFloat({ min: 100 })
       .withMessage("min price is 100 $"),
   ];
 };
