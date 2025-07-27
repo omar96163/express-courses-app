@@ -7,20 +7,24 @@ export const generate_token = (email, id, role) => {
 };
 
 export const verify_token = (req, res, next) => {
-  const Authorization_token = req.headers.authorization;
-  if (!Authorization_token) {
-    return res
-      .status(401)
-      .json({ status: "Failed", error: "token is required , login to go" });
-  }
+  const Bearer_token = req.headers.authorization;
+  const token = Bearer_token.split(" ")[1];
   try {
-    const token = Authorization_token.split(" ")[1];
-    const current_user = JsonWebToken.verify(token, process.env.secret_key);
-    if (!current_user) {
-      return res.status(401).json({ status: "Failed", error: "invalid token" });
+    if (!token || token == undefined || token == null) {
+      return res
+        .status(401)
+        .json({ status: "Failed", error: "token is required , login to go" });
+    } else {
+      const current_user = JsonWebToken.verify(token, process.env.secret_key);
+      if (!current_user) {
+        return res
+          .status(401)
+          .json({ status: "Failed", error: "invalid token" });
+      } else {
+        req.current_user = current_user;
+        next();
+      }
     }
-    req.current_user = current_user;
-    next();
   } catch (err) {
     return res.status(500).json({
       status: "error",
