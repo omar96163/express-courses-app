@@ -11,18 +11,20 @@ export const verify_token = (req, res, next) => {
   if (!Authorization_token) {
     return res
       .status(401)
-      .json({ status: "Failed", data: "token is required , login to go" });
+      .json({ status: "Failed", error: "token is required , login to go" });
   }
   try {
     const token = Authorization_token.split(" ")[1];
     const current_user = JsonWebToken.verify(token, process.env.secret_key);
+    if (!current_user) {
+      return res.status(401).json({ status: "Failed", error: "invalid token" });
+    }
     req.current_user = current_user;
     next();
   } catch (err) {
-    return res.status(401).json({
-      status: "Failed",
-      data: "token was expired , login to go",
-      message: err.message,
+    return res.status(500).json({
+      status: "error",
+      error: err.message,
     });
   }
 };
