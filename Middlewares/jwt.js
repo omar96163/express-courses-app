@@ -8,6 +8,7 @@ export const generate_token = (email, id, role) => {
 
 export const verify_token = (req, res, next) => {
   const Bearer_token = req.headers.authorization;
+  console.log("token ==== ", Bearer_token);
   const token = Bearer_token.split(" ")[1];
   try {
     if (!token || token == undefined || token == null) {
