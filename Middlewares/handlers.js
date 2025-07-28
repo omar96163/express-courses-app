@@ -15,7 +15,7 @@ export const allowed_to = (...roles) => {
     if (!roles.includes(current_user_role)) {
       return res
         .status(403)
-        .json({ status: "Failed", msg: "you are not allowed" });
+        .json({ status: "Failed", error: "you are not allowed" });
     }
     next();
   };
