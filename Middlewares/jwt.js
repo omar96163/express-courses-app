@@ -2,7 +2,7 @@ import JsonWebToken from "jsonwebtoken";
 
 export const generate_token = (email, id, role) => {
   return JsonWebToken.sign({ email, id, role }, process.env.secret_key, {
-    expiresIn: "1m",
+    expiresIn: "1440m",
   });
 };
 
