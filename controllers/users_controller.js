@@ -45,6 +45,16 @@ export const login = async (req, res) => {
       status: "Failed",
       error: "email & password are required",
     });
+  if (!user_email) {
+    return res.status(400).json({
+      status: "Failed",
+      error: "email is required",
+    });
+  if ( !user_password) {
+    return res.status(400).json({
+      status: "Failed",
+      error: "password is required",
+    });
   } else {
     try {
       const matched_user = await usersmodel.findOne({ email: user_email });
