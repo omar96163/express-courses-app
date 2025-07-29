@@ -40,7 +40,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const user_email = req.body.email;
   const user_password = req.body.password;
-  if (!user_email || !user_password) {
+  if (!user_email & !user_password) {
     return res.status(400).json({
       status: "Failed",
       error: "email & password are required",
