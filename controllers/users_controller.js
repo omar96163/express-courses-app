@@ -31,7 +31,9 @@ export const register = async (req, res) => {
     user.token = token;
     user.avatar = req.file?.filename || "profile.jpg";
     await user.save();
-    return res.status(201).json({ status: "success", data: { user } });
+    return res
+      .status(201)
+      .json({ status: "success", data: { user }, msg: "sign up successfully" });
   } catch (err) {
     return res.status(500).json({ status: "error", error: err.message });
   }
@@ -84,7 +86,7 @@ export const login = async (req, res) => {
           matched_user.token = token;
           return res.json({
             status: "success",
-            message: "logged in successfully",
+            msg: "logged in successfully",
             user: matched_user,
           });
         }
