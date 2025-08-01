@@ -26,5 +26,10 @@ courseRouter
 courseRouter
   .route("/:id")
   .get(getCourseById)
-  .patch(verify_token, allowed_to(roles.ADMIN, roles.MANAGER), updateCourse)
+  .patch(
+    verify_token,
+    allowed_to(roles.ADMIN, roles.MANAGER),
+    validationSchemaCourses(),
+    updateCourse
+  )
   .delete(verify_token, allowed_to(roles.MANAGER), deleteCourse);
