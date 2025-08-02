@@ -45,6 +45,10 @@ export const createCourse = async (req, res) => {
 };
 
 export const updateCourse = async (req, res) => {
+  const err = validationResult(req);
+  if (!err.isEmpty()) {
+    return res.status(400).json({ status: "Failed", error: err.array() });
+  }
   try {
     const updatedcourse = await coursesmodel.findByIdAndUpdate(
       req.params.id,
@@ -56,7 +60,7 @@ export const updateCourse = async (req, res) => {
         .status(404)
         .json({ status: "Failed", error: "course not found" });
     }
-    return res.json({ status: "success", data: { updatedcourse } });
+    return res.status(200).json({ status: "success", data: { updatedcourse } });
   } catch (err) {
     return res.status(400).json({ status: "error", error: err.message });
   }
