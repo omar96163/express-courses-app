@@ -62,7 +62,7 @@ export const updateCourse = async (req, res) => {
     }
     return res.status(200).json({ status: "success", data: { updatedcourse } });
   } catch (err) {
-    return res.status(400).json({ status: "error", error: err.message });
+    return res.status(500).json({ status: "error", error: err.message });
   }
 };
 
