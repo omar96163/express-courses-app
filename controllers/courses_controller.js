@@ -6,11 +6,18 @@ export const getAllCourses = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const skip = (page - 1) * limit;
   try {
+    const totalCourses = await coursesmodel.countDocuments();
+    const totalPages = totalCourses / limit;
     const courses = await coursesmodel
       .find({}, { __v: false })
       .limit(limit)
       .skip(skip);
-    return res.json({ status: "success", data: { courses } });
+    return res.status(200).json({
+      status: "success",
+      data: { courses },
+      totalPages: Math.ceil(totalPages),
+      currentPage: page,
+    });
   } catch (err) {
     return res.status(500).json({ status: "error", error: err.message });
   }
@@ -74,11 +81,11 @@ export const deleteCourse = async (req, res) => {
         .status(404)
         .json({ status: "Failed", error: "course not found" });
     }
-    return res.json({
+    return res.status(200).json({
       status: "success",
       data: `${deletedcourse.title} , deleted`,
     });
   } catch (err) {
-    return res.status(400).json({ status: "error", error: err.message });
+    return res.status(500).json({ status: "error", error: err.message });
   }
 };
