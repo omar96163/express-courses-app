@@ -15,8 +15,7 @@ export const getAllCourses = async (req, res) => {
     return res.status(200).json({
       status: "success",
       data: { courses },
-      totalPages: Math.ceil(totalPages),
-      currentPage: page,
+      totalPages: Math.ceil(totalPages)
     });
   } catch (err) {
     return res.status(500).json({ status: "error", error: err.message });
