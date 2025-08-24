@@ -16,9 +16,13 @@ export const usersRouter = express.Router();
 usersRouter
   .route("/")
   .get(verify_token, allowed_to(roles.ADMIN, roles.MANAGER), getAllUsers);
+
 usersRouter
   .route("/register")
-  .post(upload.single("avatar"), validationSchemaUsers(), register)
+  .post(upload.single("avatar"), validationSchemaUsers(), register);
+
+usersRouter
+  .route("/:id")
   .delete(verify_token, allowed_to(roles.MANAGER), deleteUsers);
 
 usersRouter.route("/login").post(login);
