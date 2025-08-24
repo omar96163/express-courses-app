@@ -96,3 +96,20 @@ export const login = async (req, res) => {
     }
   }
 };
+
+export const deleteUsers = async (req, res) => {
+  try {
+    const deleteduser = await usersmodel.findByIdAndDelete(req.params.id);
+    if (!deleteduser) {
+      return res
+        .status(404)
+        .json({ status: "Failed", error: "user not found" });
+    }
+    return res.status(200).json({
+      status: "success",
+      data: `${deleteduser.firstname} , deleted`,
+    });
+  } catch (err) {
+    return res.status(500).json({ status: "error", error: err.message });
+  }
+};

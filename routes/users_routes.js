@@ -6,6 +6,7 @@ import { allowed_to } from "../Middlewares/handlers.js";
 import { validationSchemaUsers } from "../schema/users_schema.js";
 import {
   getAllUsers,
+  deleteUsers,
   register,
   login,
 } from "../controllers/users_controller.js";
@@ -17,6 +18,7 @@ usersRouter
   .get(verify_token, allowed_to(roles.ADMIN, roles.MANAGER), getAllUsers);
 usersRouter
   .route("/register")
-  .post(upload.single("avatar"), validationSchemaUsers(), register);
+  .post(upload.single("avatar"), validationSchemaUsers(), register)
+  .delete(verify_token, allowed_to(roles.MANAGER), deleteUsers);
 
 usersRouter.route("/login").post(login);
