@@ -107,7 +107,7 @@ export const deleteUsers = async (req, res) => {
     }
     return res.status(200).json({
       status: "success",
-      data: `${deleteduser.firstname} , deleted`,
+      data: `${deleteduser.email} , deleted`,
     });
   } catch (err) {
     return res.status(500).json({ status: "error", error: err.message });
