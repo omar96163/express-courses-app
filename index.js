@@ -1,6 +1,7 @@
 import "dotenv/config";
 import cors from "cors";
 import path from "path";
+import fs from "fs";
 import express from "express";
 import mongoose from "mongoose";
 import { fileURLToPath } from "url";
@@ -21,6 +22,11 @@ mongoose
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const imagesPath = path.join(__dirname, "uploads");
+
+const uploadDir = path.join(process.cwd(), "uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
 
 app.use(cors());
 app.use(express.json());
