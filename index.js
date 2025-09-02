@@ -24,8 +24,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const imagesPath = path.join(__dirname, "uploads");
 
 const uploadDir = path.join(process.cwd(), "uploads");
+const defaultImage = path.join(process.cwd(), "profile.png");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
+  fs.copyFileSync(defaultImage, path.join(uploadDir, "profile.png"));
 }
 
 app.use(cors());
