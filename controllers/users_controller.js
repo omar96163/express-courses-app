@@ -29,7 +29,7 @@ export const register = async (req, res) => {
     const user = new usersmodel(req.body);
     const token = generate_token(user.email, user._id, user.role);
     user.token = token;
-    user.avatar = req.file?.filename || "profile.jpg";
+    user.avatar = req.file?.filename || "profile.png";
     await user.save();
     return res
       .status(201)
